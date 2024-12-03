@@ -12,6 +12,7 @@ namespace bachHjalp.Databases
     {
         private readonly SQLiteAsyncConnection _connection;
 
+        // RawDatabase
         public RawDatabase()
         {
             try
