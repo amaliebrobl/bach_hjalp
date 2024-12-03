@@ -1,9 +1,12 @@
 ﻿using Microcharts;
 using SkiaSharp;
 using System.Collections.ObjectModel;
-using bach_hjalp.Databases;
+using bachHjalp.Databases;
+using System.Diagnostics;
+using Microcharts.Maui;
+using Microsoft.Maui.Controls;
 
-namespace bach_hjalp
+namespace bachHjalp
 {
     public partial class MainPage : ContentPage
     {
@@ -12,6 +15,7 @@ namespace bach_hjalp
 
         public ObservableCollection<RawDatabaseModel> ECGDataList { get; set; }
 
+        // Main Page comment
         public MainPage()
         {
             InitializeComponent();
@@ -22,10 +26,10 @@ namespace bach_hjalp
             _rawDatabase = new RawDatabase();
             _csvImporter = new CSV_Importer_Test();
 
-            LoadAndDisplayData();
+            Task.Run(async () => LoadAndDisplayData());
         }
 
-        private async void LoadAndDisplayData()
+        private async Task LoadAndDisplayData()
         {
             try
             {
@@ -37,14 +41,26 @@ namespace bach_hjalp
 
                 // Load data into the ObservableCollection for the CollectionView
                 var data = await _rawDatabase.GetAllDataAsync();
+
+                // Debug: Tjek om data indeholder noget
+                Debug.WriteLine($"Data loaded: {data.Count()} items.");
+
                 ECGDataList.Clear();
                 foreach (var item in data)
                 {
                     ECGDataList.Add(item);
                 }
 
-                // Create and display the chart
-                CreateChart(data);
+                if (data.Any())
+                {
+                    // Create and display the chart
+                    Debug.WriteLine("Creating chart...");
+                    CreateChart(data);
+                }
+                else
+                {
+                    Debug.WriteLine("empty to display in the chart");
+                }
             }
             catch (Exception ex)
             {
@@ -56,21 +72,29 @@ namespace bach_hjalp
         {
             try
             {
-                var entries = data.Select(item => new ChartEntry((float)item.ECG_data)
+                var entries = data.Select(static item => new ChartEntry((float)item.ECG_data)
                 {
-                    Label = item.Time.ToString("0.##"),
-                    ValueLabel = item.ECG_data.ToString("0.##"),
-                    Color = SKColor.Parse("#77d065")
+                    Label = item.Time.ToString(),
+                    ValueLabel = item.ECG_data.ToString(),
                 }).ToList();
 
-                MyChart.Chart = new LineChart
+                var chart = new LineChart { Entries = entries };
+
+                // Chart vises på UI
+                MainThread.InvokeOnMainThreadAsync(() =>
                 {
-                    Entries = entries,
-                    LineMode = LineMode.Straight,
-                    LineSize = 4,
-                    PointSize = 8,
-                    LabelTextSize = 20,
-                };
+                    if (chartView == null)
+                    {
+                        Debug.WriteLine("chartView is null!");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"chartView dimensions: Height={chartView.Height}, Width={chartView.Width}");
+                        chartView.Chart = chart;
+                    }
+                });
+
+                Debug.WriteLine("Chart created and assigned.");
             }
             catch (Exception ex)
             {
@@ -78,5 +102,4 @@ namespace bach_hjalp
             }
         }
     }
-
 }

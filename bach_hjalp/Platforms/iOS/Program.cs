@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace bach_hjalp
+namespace bachHjalp
 {
     public class Program
     {

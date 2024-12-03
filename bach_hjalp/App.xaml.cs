@@ -1,4 +1,4 @@
-﻿namespace bach_hjalp
+﻿namespace bachHjalp
 {
     public partial class App : Application
     {
@@ -7,6 +7,6 @@
             InitializeComponent();
 
             MainPage = new AppShell();
-        }
+        } 
     }
 }

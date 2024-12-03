@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SQLite;
 
-namespace bach_hjalp.Databases
+namespace bachHjalp.Databases
 {
     public class RawDatabaseModel
     {

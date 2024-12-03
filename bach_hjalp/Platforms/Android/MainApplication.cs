@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace bach_hjalp
+namespace bachHjalp
 {
     [Application]
     public class MainApplication : MauiApplication
