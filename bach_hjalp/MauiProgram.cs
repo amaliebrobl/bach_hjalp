@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microcharts.Maui;
 
-namespace bach_hjalp
+namespace bachHjalp
 {
     public static class MauiProgram
     {
@@ -9,6 +10,7 @@ namespace bach_hjalp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMicrocharts()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

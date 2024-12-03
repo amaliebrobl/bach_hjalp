@@ -1,4 +1,4 @@
-﻿namespace bach_hjalp
+﻿namespace bachHjalp
 {
     public partial class AppShell : Shell
     {

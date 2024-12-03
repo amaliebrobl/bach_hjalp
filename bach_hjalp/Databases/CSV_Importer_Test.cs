@@ -5,15 +5,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
-namespace bach_hjalp.Databases
+namespace bachHjalp.Databases
 {
     public class CSV_Importer_Test
     {
         public async Task ImportCSVToDatabaseAsync(RawDatabase rawDatabase)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "ecgChair.Testdata.ECG.csv";
+            var resourceName = "bachHjalp.Testdata.ECG.csv";
 
             using Stream? stream = assembly.GetManifestResourceStream(resourceName);
             if (stream == null)
@@ -46,6 +47,8 @@ namespace bach_hjalp.Databases
                         {
                             double time = double.Parse(values[0], CultureInfo.InvariantCulture);
                             double ecgValue = double.Parse(values[1], CultureInfo.InvariantCulture);
+
+                            Debug.WriteLine($"Time: {time}, ECG: {ecgValue}");
 
                             var data = new RawDatabaseModel
                             {

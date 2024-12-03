@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using System.Diagnostics;
 
-namespace bach_hjalp.Databases
+namespace bachHjalp.Databases
 {
     public class RawDatabase
     {

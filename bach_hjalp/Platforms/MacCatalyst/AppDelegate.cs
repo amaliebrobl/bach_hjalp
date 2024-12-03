@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace bach_hjalp
+namespace bachHjalp
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate
